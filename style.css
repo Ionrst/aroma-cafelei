@@ -1,14 +1,5 @@
-/* ============================================================
-   COFFEE LANDING PAGE — CSS COMPLET
-   Fonturi: Poppins (body) + Playfair Display (titluri)
-   Paleta: maro #3B1F0C · caramel #C8813A · crem #F5EFE6 · bej #EDE0CC
-   ============================================================ */
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
 
-/* ─────────────────────────────────────────────────────────────
-   RESET & VARIABILE
-───────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -56,10 +47,6 @@
   --section-pad:  6rem 2rem;
   --max-w:        1200px;
 }
-
-/* ─────────────────────────────────────────────────────────────
-   BASE
-───────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
   font-size: 16px;
@@ -104,9 +91,6 @@ img {
 
 ul { list-style: none; }
 
-/* ─────────────────────────────────────────────────────────────
-   UTILITARE
-───────────────────────────────────────────────────────────── */
 .container {
   max-width: var(--max-w);
   margin-inline: auto;
@@ -150,9 +134,6 @@ ul { list-style: none; }
   max-width: 520px;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   BUTOANE
-───────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -232,9 +213,6 @@ ul { list-style: none; }
   box-shadow: var(--shadow-md);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   HEADER / NAVIGAȚIE
-───────────────────────────────────────────────────────────── */
 header,
 .header,
 nav.navbar,
@@ -366,9 +344,6 @@ nav .container {
   transition: transform 0.3s, opacity 0.3s;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   HERO SECTION
-───────────────────────────────────────────────────────────── */
 .hero,
 #hero,
 .hero-section {
@@ -380,8 +355,6 @@ nav .container {
   overflow: hidden;
   padding: 6rem 2rem 4rem;
 }
-
-/* Overlay gradient peste imagine */
 .hero::before,
 .hero-section::before {
   content: '';
@@ -397,7 +370,6 @@ nav .container {
   z-index: 1;
 }
 
-/* Imagine de fundal */
 .hero-bg,
 .hero-image,
 .hero-background {
@@ -420,8 +392,6 @@ nav .container {
 .hero-section:hover .hero-bg img {
   transform: scale(1.04);
 }
-
-/* Conținut hero */
 .hero-content,
 .hero-text {
   position: relative;
@@ -494,7 +464,6 @@ nav .container {
   margin-top: 0.3rem;
 }
 
-/* Scroll indicator */
 .scroll-indicator,
 .hero-scroll {
   position: absolute;
@@ -536,10 +505,6 @@ nav .container {
   80%  { opacity: 0; transform: translateY(12px); }
   100% { opacity: 0; transform: translateY(0); }
 }
-
-/* ─────────────────────────────────────────────────────────────
-   ABOUT SECTION
-───────────────────────────────────────────────────────────── */
 .about,
 #about,
 .about-section {
@@ -613,8 +578,6 @@ nav .container {
   font-size: 0.88rem;
   color: var(--text-muted);
 }
-
-/* Imagine about */
 .about-visual,
 .about-image-wrap {
   position: relative;
@@ -677,10 +640,6 @@ nav .container {
 
 .about-glow-1 { bottom: -3rem; right: -3rem; }
 .about-glow-2 { top: -3rem; left: -3rem; background: rgba(200, 129, 58, 0.1); }
-
-/* ─────────────────────────────────────────────────────────────
-   MENU / PRODUSE
-───────────────────────────────────────────────────────────── */
 .menu,
 #menu,
 .products,
@@ -712,8 +671,6 @@ nav .container {
   max-width: var(--max-w);
   margin-inline: auto;
 }
-
-/* Card produs */
 .product-card,
 .menu-card,
 .card {
@@ -770,8 +727,6 @@ nav .container {
   inset: 0;
   background: linear-gradient(to top, rgba(30, 14, 5, 0.18), transparent 60%);
 }
-
-/* Badge pe card */
 .card-badge {
   position: absolute;
   top: 0.9rem;
@@ -786,8 +741,6 @@ nav .container {
   padding: 0.3rem 0.75rem;
   border-radius: var(--radius-full);
 }
-
-/* Corp card */
 .card-body,
 .product-body,
 .menu-card-body {
@@ -827,8 +780,6 @@ nav .container {
   line-height: 1.65;
   margin-bottom: 1.2rem;
 }
-
-/* Buton card */
 .card-btn,
 .btn-cart,
 .product-btn {
@@ -864,10 +815,6 @@ nav .container {
 .btn-cart:active {
   transform: translateY(0);
 }
-
-/* ─────────────────────────────────────────────────────────────
-   RECENZII / TESTIMONIALE
-───────────────────────────────────────────────────────────── */
 .reviews,
 #reviews,
 .testimonials,
@@ -895,8 +842,6 @@ nav .container {
   max-width: var(--max-w);
   margin-inline: auto;
 }
-
-/* Card recenzie */
 .review-card,
 .testimonial-card {
   background: var(--white);
@@ -912,7 +857,6 @@ nav .container {
   box-shadow: var(--shadow-md);
 }
 
-/* Stele */
 .stars,
 .rating {
   display: flex;
@@ -922,8 +866,6 @@ nav .container {
   font-size: 1rem;
   letter-spacing: 0.05em;
 }
-
-/* Citat */
 .review-text,
 .testimonial-text {
   font-family: 'Playfair Display', serif;
@@ -984,10 +926,6 @@ nav .container {
   color: var(--text-muted);
   margin-top: 0.15rem;
 }
-
-/* ─────────────────────────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────────────────────────── */
 footer,
 .footer {
   background: var(--brown-dark);
@@ -1003,8 +941,6 @@ footer,
   margin-inline: auto;
   margin-bottom: 4rem;
 }
-
-/* Brand coloană */
 .footer-brand .logo {
   color: var(--white);
   display: inline-block;
@@ -1017,8 +953,6 @@ footer,
   max-width: 260px;
   margin-bottom: 1.5rem;
 }
-
-/* Social */
 .social-links {
   display: flex;
   gap: 0.75rem;
@@ -1046,8 +980,6 @@ footer,
   color: var(--white);
   transform: translateY(-3px);
 }
-
-/* Coloane footer */
 .footer-col h4 {
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
@@ -1079,8 +1011,6 @@ footer,
 .footer-col ul a:hover {
   color: var(--gold);
 }
-
-/* Footer bottom */
 .footer-bottom {
   max-width: var(--max-w);
   margin-inline: auto;
@@ -1094,10 +1024,6 @@ footer,
   font-size: 0.82rem;
   color: rgba(245, 239, 230, 0.35);
 }
-
-/* ─────────────────────────────────────────────────────────────
-   SCROLL REVEAL ANIMAȚII
-───────────────────────────────────────────────────────────── */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1114,9 +1040,6 @@ footer,
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
-/* ─────────────────────────────────────────────────────────────
-   RESPONSIVE — TABLETĂ (max 1024px)
-───────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   :root { --section-pad: 5rem 1.5rem; }
 
@@ -1151,14 +1074,9 @@ footer,
     grid-column: span 2;
   }
 }
-
-/* ─────────────────────────────────────────────────────────────
-   RESPONSIVE — MOBIL (max 768px)
-───────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   :root { --section-pad: 4rem 1.2rem; }
 
-  /* Nav mobil */
   .nav-links,
   .navbar-links,
   .nav-menu {
@@ -1218,8 +1136,6 @@ footer,
     width: 100%;
     max-width: 300px;
   }
-
-  /* Produse */
   .menu-grid,
   .products-grid,
   .cards-grid {
@@ -1235,7 +1151,6 @@ footer,
     gap: 1rem;
   }
 
-  /* Recenzii */
   .reviews-grid,
   .testimonials-grid {
     grid-template-columns: 1fr;
@@ -1243,13 +1158,11 @@ footer,
     margin-inline: auto;
   }
 
-  /* About */
   .about-badge {
     left: 0.5rem;
     bottom: 0.5rem;
   }
 
-  /* Footer */
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
