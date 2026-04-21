@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aroma Cafelei</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #000000;
+      --zinc-950: #09090b;
+      --zinc-900: #18181b;
+      --zinc-800: #27272a;
+      --zinc-700: #3f3f46;
+      --zinc-400: #a1a1aa;
+      --white:    #ffffff;
+      --amber-500:#f59e0b;
+      --amber-600:#d97706;
+      --amber-700:#b45309;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Outfit', sans-serif;
+      --ease: cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: var(--font-body); border: none; }
+
+    /* ══════════════════════════════════════════
+       NAVIGATION
+    ══════════════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(0,0,0,.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--zinc-800);
+    }
+
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px;
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .nav-icon {
+      width: 32px; height: 32px; color: var(--amber-500);
+      flex-shrink: 0;
+    }
+    .nav-brand-name {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .nav-links a {
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: .04em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--amber-500); }
+
+    .btn-order {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .5rem 1.4rem;
+      background: var(--amber-600);
+      color: var(--white);
+      border-radius: 99px;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .btn-order:hover { background: var(--amber-700); }
+    .btn-order svg { width: 16px; height: 16px; }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      padding: .4rem;
+    }
+    .nav-hamburger svg { width: 24px; height: 24px; }
+
+    .nav-mobile {
+      display: none;
+      padding: 1rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--zinc-800);
+      flex-direction: column; gap: 1rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: .95rem;
+      color: var(--white);
+      padding: .4rem 0;
+      transition: color .2s;
+    }
+    .nav-mobile a:hover { color: var(--amber-500); }
+
+    /* ══════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 100svh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.7) 0%, rgba(0,0,0,.5) 50%, #000 100%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 10;
+      text-align: center;
+      padding: 0 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: heroFade .9s var(--ease) both;
+    }
+    @keyframes heroFade { from { opacity: 0; transform: translateY(24px); } }
+
+    .hero-content h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+    .hero-content h1 span {
+      display: block;
+      color: var(--amber-500);
+      font-style: italic;
+    }
+
+    .hero-content p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #d1d5db;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: 1rem 2rem;
+      background: var(--amber-600);
+      color: var(--white);
+      border-radius: 99px;
+      font-size: .95rem;
+      font-weight: 500;
+      transition: background .3s, transform .2s;
+    }
+    .btn-primary:hover { background: var(--amber-700); }
+    .btn-primary svg { width: 20px; height: 20px; transition: transform .2s; }
+    .btn-primary:hover svg { transform: translateX(4px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      padding: 1rem 2rem;
+      border: 2px solid rgba(255,255,255,.3);
+      color: var(--white);
+      border-radius: 99px;
+      font-size: .95rem;
+      font-weight: 400;
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(4px);
+      transition: border-color .3s;
+    }
+    .btn-ghost:hover { border-color: var(--amber-500); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%; transform: translateX(-50%);
+      z-index: 10;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+    .scroll-indicator {
+      width: 24px; height: 40px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-radius: 99px;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: .5rem;
+    }
+    .scroll-dot {
+      width: 6px; height: 6px;
+      background: var(--amber-500);
+      border-radius: 50%;
+    }
+
+    /* ══════════════════════════════════════════
+       FEATURED PRODUCTS
+    ══════════════════════════════════════════ */
+    .products {
+      padding: 6rem 1.5rem;
+      background: var(--zinc-900);
+    }
+
+    .products-inner { max-width: 1280px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: .75rem;
+      letter-spacing: -.01em;
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--zinc-400);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .product-card {
+      position: relative;
+      background: var(--zinc-800);
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--zinc-700);
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+    }
+    .product-card:hover {
+      border-color: var(--amber-600);
+      box-shadow: 0 25px 50px rgba(217,119,6,.2);
+      transform: translateY(-4px);
+    }
+
+    .product-img {
+      position: relative;
+      height: 256px;
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s var(--ease);
+    }
+    .product-card:hover .product-img img { transform: scale(1.1); }
+    .product-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, var(--zinc-900), transparent);
+    }
+
+    .product-body { padding: 1.5rem; }
+
+    .product-meta {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: .75rem;
+    }
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--amber-500);
+      white-space: nowrap;
+    }
+    .product-desc {
+      color: var(--zinc-400);
+      font-size: .9rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .btn-cart {
+      width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .75rem;
+      background: var(--amber-600);
+      color: var(--white);
+      border-radius: .5rem;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: background .3s;
+    }
+    .btn-cart:hover { background: var(--amber-700); }
+    .btn-cart svg { width: 20px; height: 20px; }
+
+    /* ══════════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════════ */
+    .about {
+      padding: 6rem 1.5rem;
+      background: var(--black);
+    }
+    .about-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+    }
+    .about-content h2 span { color: var(--amber-500); font-style: italic; }
+
+    .about-content > p {
+      font-size: 1.05rem;
+      color: var(--zinc-400);
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+
+    .features { display: flex; flex-direction: column; gap: 1.5rem; }
+    .feature {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .feature-icon {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      background: rgba(217,119,6,.2);
+      border-radius: .5rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--amber-500);
+    }
+    .feature-icon svg { width: 24px; height: 24px; }
+    .feature-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: .3rem;
+    }
+    .feature-text p { color: var(--zinc-400); font-size: .9rem; }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-visual-img {
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .about-visual-img img {
+      width: 100%; height: 500px; object-fit: cover;
+    }
+    .about-glow-1 {
+      position: absolute;
+      bottom: -24px; right: -24px;
+      width: 192px; height: 192px;
+      background: rgba(217,119,6,.2);
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .about-glow-2 {
+      position: absolute;
+      top: -24px; left: -24px;
+      width: 192px; height: 192px;
+      background: rgba(217,119,6,.2);
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════
+       EXPERIENCE
+    ══════════════════════════════════════════ */
+    .experience {
+      position: relative;
+      padding: 8rem 1.5rem;
+      overflow: hidden;
+    }
+    .experience-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .experience-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .experience-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.8);
+    }
+
+    .experience-inner {
+      position: relative; z-index: 10;
+      max-width: 900px; margin: 0 auto;
+      text-align: center;
+    }
+    .experience-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -.01em;
+    }
+    .experience-inner h2 span { color: var(--amber-500); font-style: italic; }
+    .experience-inner > p {
+      font-size: 1.1rem;
+      color: #d1d5db;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.75;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .stat-card {
+      background: rgba(24,24,27,.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--zinc-700);
+      border-radius: .75rem;
+      padding: 2rem;
+      transition: border-color .3s, transform .3s;
+    }
+    .stat-card:hover { border-color: var(--amber-600); transform: translateY(-4px); }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--amber-500);
+      line-height: 1;
+      margin-bottom: .75rem;
+    }
+    .stat-title {
+      font-size: 1.1rem;
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: .4rem;
+    }
+    .stat-sub { font-size: .875rem; color: var(--zinc-400); }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer {
+      background: var(--zinc-950);
+      border-top: 1px solid var(--zinc-800);
+      padding: 3rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand-logo {
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: 1rem;
+    }
+    .footer-brand-logo svg { width: 32px; height: 32px; color: var(--amber-500); }
+    .footer-brand-logo span {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .footer-brand p {
+      color: var(--zinc-400);
+      font-size: .9rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      max-width: 320px;
+    }
+
+    .social-links { display: flex; gap: .75rem; }
+    .social-btn {
+      width: 40px; height: 40px;
+      background: var(--zinc-800);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      transition: background .2s;
+    }
+    .social-btn:hover { background: var(--amber-600); }
+    .social-btn svg { width: 20px; height: 20px; }
+
+    .footer-col h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-col ul a {
+      color: var(--zinc-400);
+      font-size: .9rem;
+      transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--amber-500); }
+    .footer-col ul li { color: var(--zinc-400); font-size: .9rem; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--zinc-800);
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--zinc-400);
+      font-size: .875rem;
+    }
+
+    /* ══════════════════════════════════════════
+       SCROLL REVEAL
+    ══════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual-img img { height: 360px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+
+      .products-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; }
+
+      .hero-cta { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-ghost { width: 100%; max-width: 280px; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ══════════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+
+      <div class="nav-brand">
+        <!-- Coffee icon -->
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+          <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+          <line x1="6" x2="6" y1="2" y2="4"/>
+          <line x1="10" x2="10" y1="2" y2="4"/>
+          <line x1="14" x2="14" y1="2" y2="4"/>
+        </svg>
+        <span class="nav-brand-name">AROMA CAFELEI</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#hero">Acasă</a>
+        <a href="#products">Meniu</a>
+        <a href="#about">Despre</a>
+        <a href="#footer">Contact</a>
+        <button class="btn-order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+          </svg>
+          Comandă
+        </button>
+      </div>
+
+      <button class="nav-hamburger" id="hamburger" aria-label="Meniu mobil">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="nav-mobile" id="mobileMenu">
+      <a href="#hero">Acasă</a>
+      <a href="#products">Meniu</a>
+      <a href="#about">Despre</a>
+      <a href="#footer">Contact</a>
+      <button class="btn-order" style="justify-content:center;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+          <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+        </svg>
+        Comandă
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ════════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img
+        src="https://loremflickr.com/1280/900/coffee,steam?lock=1"
+        alt="Ceașcă de cafea cu abur"
+        loading="eager"
+      />
+    </div>
+
+    <div class="hero-content">
+      <h1>
+        Creată pentru
+        <span>Perfecțiune</span>
+      </h1>
+      <p>
+        Experimentează arta cafelei la cel mai înalt nivel.
+        Fiecare ceașcă spune o poveste de pasiune și precizie.
+      </p>
+      <div class="hero-cta">
+        <a href="#products" class="btn-primary">
+          Descoperă Meniul
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#about" class="btn-ghost">Povestea Noastră</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FEATURED PRODUCTS ════════════════════════════════════ -->
+  <section class="products" id="products">
+    <div class="products-inner">
+      <div class="section-header">
+        <h2 class="reveal">Cafele Speciale</h2>
+        <p class="reveal reveal-delay-1">Preparate zilnic manual cu dragoste și experiență</p>
+      </div>
+
+      <div class="products-grid">
+
+        <article class="product-card reveal">
+          <div class="product-img">
+            <img
+              src="https://loremflickr.com/800/600/latte,coffee?lock=2"
+              alt="Latte Signature"
+              loading="lazy"
+            />
+          </div>
+          <div class="product-body">
+            <div class="product-meta">
+              <h3 class="product-name">Latte Signature</h3>
+              <span class="product-price">18 MDL</span>
+            </div>
+            <p class="product-desc">Espresso cremos cu lapte perfect abruit</p>
+            <button class="btn-cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+              </svg>
+              Adaugă la Comandă
+            </button>
+          </div>
+        </article>
+
+        <article class="product-card reveal reveal-delay-1">
+          <div class="product-img">
+            <img
+              src="https://loremflickr.com/800/600/cappuccino,coffee?lock=3"
+              alt="Cappuccino"
+              loading="lazy"
+            />
+          </div>
+          <div class="product-body">
+            <div class="product-meta">
+              <h3 class="product-name">Cappuccino</h3>
+              <span class="product-price">16 MDL</span>
+            </div>
+            <p class="product-desc">Espresso bogat cu spumă catifelată</p>
+            <button class="btn-cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+              </svg>
+              Adaugă la Comandă
+            </button>
+          </div>
+        </article>
+
+        <article class="product-card reveal reveal-delay-2">
+          <div class="product-img">
+            <img
+              src="https://loremflickr.com/800/600/iced,coffee?lock=4"
+              alt="Cold Brew"
+              loading="lazy"
+            />
+          </div>
+          <div class="product-body">
+            <div class="product-meta">
+              <h3 class="product-name">Cold Brew</h3>
+              <span class="product-price">15 MDL</span>
+            </div>
+            <p class="product-desc">Preparată la rece timp de 24 de ore</p>
+            <button class="btn-cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+              </svg>
+              Adaugă la Comandă
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ════════════════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+
+      <div class="about-content reveal">
+        <h2>Arta <span>Cafelei</span></h2>
+        <p>
+          De peste un deceniu, perfecționăm arta preparării cafelei. De la selectarea celor mai bune boabe până la stăpânirea preparării perfecte, fiecare pas este o mărturie a angajamentului nostru față de excelență.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">
+              <!-- Coffee icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+                <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+                <line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Boabe Premium</h3>
+              <p>Provenite din cele mai bune regiuni de cafea din lume</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <!-- Heart icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Făcută cu Dragoste</h3>
+              <p>Fiecare ceașcă este preparată cu pasiune și dedicare</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <!-- Award icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"/>
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Premiată</h3>
+              <p>Recunoscută pentru excelență în arta cafelei</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-visual reveal reveal-delay-1">
+        <div class="about-visual-img">
+          <img
+            src="https://loremflickr.com/800/900/barista,espresso?lock=5"
+            alt="Mașina de espresso"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-glow-1"></div>
+        <div class="about-glow-2"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ EXPERIENCE ════════════════════════════════════════════ -->
+  <section class="experience" id="experience">
+    <div class="experience-bg">
+      <img
+        src="https://loremflickr.com/1280/900/coffee,beans?lock=6"
+        alt="Boabe de cafea"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="experience-inner">
+      <h2 class="reveal">
+        O Experiență Dincolo de <span>Gust</span>
+      </h2>
+      <p class="reveal reveal-delay-1">
+        Intră într-o lume unde fiecare înghițitură te transportă. Atmosfera noastră atent aleasă și băuturile pregătite meticulos creează momente care merită savurate.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <div class="stat-num">100+</div>
+          <div class="stat-title">Sortimente de Cafea</div>
+          <p class="stat-sub">Din toată lumea</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-num">15+</div>
+          <div class="stat-title">Ani de Experiență</div>
+          <p class="stat-sub">Perfecționând meșteșugul</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-num">50K+</div>
+          <div class="stat-title">Clienți Mulțumiți</div>
+          <p class="stat-sub">Și numărul crește</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="footer-brand-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+              <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+              <line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/>
+            </svg>
+            <span>Gustul Cafelei</span>
+          </div>
+          <p>Creăm experiențe excepționale cu cafea din 2011. Fiecare ceașcă este o călătorie de savoare și pasiune.</p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Link-uri Rapide</h3>
+          <ul>
+            <li><a href="#products">Meniu</a></li>
+            <li><a href="#about">Despre Noi</a></li>
+            <li><a href="#">Locații</a></li>
+            <li><a href="#footer">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Program</h3>
+          <ul>
+            <li>Luni – Vineri: 7:00 – 20:00</li>
+            <li>Sâmbătă: 8:00 – 21:00</li>
+            <li>Duminică: 8:00 – 19:00</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Gustul Cafelei. Toate drepturile rezervate.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Add to cart feedback
+    document.querySelectorAll('.btn-cart').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orig = this.innerHTML;
+        this.innerHTML = '✓ Adăugat!';
+        this.style.background = '#b45309';
+        setTimeout(() => { this.innerHTML = orig; this.style.background = ''; }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>
